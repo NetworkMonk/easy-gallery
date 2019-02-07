@@ -71,12 +71,15 @@ class EasyGalleryRender {
         }
 
         this.gallery.config.targetElement.innerHTML = '';
+        var row = document.createElement('div');
+        row.classList.add('row');
+        this.gallery.config.targetElement.appendChild(row);
 
         var columns = [];
         for (i = 0; i < this.columns; i++) {
             columns[i] = this.gallery.context.createElement('div');
             columns[i].classList.add(colClass);
-            this.gallery.config.targetElement.appendChild(columns[i]);
+            row.appendChild(columns[i]);
         }
 
         for (i = 0; i < this.gallery.config.imageList.length; i++) {
