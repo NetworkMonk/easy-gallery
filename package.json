@@ -2,7 +2,7 @@
   "name": "easy-gallery",
   "version": "1.0.0",
   "description": "A simple JavaScript utitlity that can render a simple collections of images in a responsive and beautiful format.",
-  "main": "index.js",
+  "main": "easy-gallery.js",
   "scripts": {},
   "repository": {
     "type": "git",
@@ -15,13 +15,20 @@
   },
   "homepage": "https://github.com/NetworkMonk/easy-gallery#readme",
   "devDependencies": {
-    "path": "latest",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
     "del": "latest",
     "gulp": "latest",
+    "gulp-babel": "^8.0.0-beta.2",
     "gulp-cli": "latest",
+    "gulp-concat": "latest",
+    "gulp-rename": "latest",
     "gulp-uglify": "latest",
     "gulp-uglifycss": "latest",
-    "gulp-concat": "latest",
-    "gulp-rename": "latest"
+    "path": "latest",
+    "browserify": "latest",
+    "vinyl-source-stream": "latest",
+    "vinyl-buffer": "latest",
+    "babelify": "latest"
   }
 }
