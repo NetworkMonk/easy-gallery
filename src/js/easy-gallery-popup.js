@@ -34,10 +34,10 @@ class EasyGalleryPopup {
         var popupImgContainer = this.gallery.context.createElement('div');
         popupImgContainer.classList.add('easy-gallery-popup-image');
         popupImgContainer.style.position = 'absolute';
-        popupImgContainer.style.top = '3rem';
+        popupImgContainer.style.top = '4rem';
         popupImgContainer.style.left = '0';
         popupImgContainer.style.right = '0';
-        popupImgContainer.style.bottom = '3rem';
+        popupImgContainer.style.bottom = '4rem';
         popupBack.appendChild(popupImgContainer);
 
 
