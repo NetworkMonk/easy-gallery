@@ -1,0 +1,27 @@
+{
+  "name": "easy-gallery",
+  "version": "1.0.0",
+  "description": "A simple JavaScript utitlity that can render a simple collections of images in a responsive and beautiful format.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NetworkMonk/easy-gallery.git"
+  },
+  "author": "James Plant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NetworkMonk/easy-gallery/issues"
+  },
+  "homepage": "https://github.com/NetworkMonk/easy-gallery#readme",
+  "devDependencies": {
+    "path": "latest",
+    "del": "latest",
+    "gulp": "latest",
+    "gulp-cli": "latest",
+    "gulp-uglify": "latest",
+    "gulp-uglifycss": "latest",
+    "gulp-concat": "latest",
+    "gulp-rename": "latest"
+  }
+}
