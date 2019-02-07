@@ -15,7 +15,7 @@ class EasyGalleryRender {
         }
         if ((typeof(this.gallery.config.targetElement) === 'object') && (this.gallery.config.targetElement instanceof HTMLElement)) {
             if (typeof(window) !== 'undefined') {
-                window.addEventListener('resize', this.resize);
+                window.addEventListener('resize', () => this.resize());
             }
         }
     }
@@ -28,15 +28,18 @@ class EasyGalleryRender {
         }
 
         var columnCount = 1;
-        var windowWidth = this.gallery.context.innerWidth;
+        var windowWidth = this.gallery.context.body;
+        if (typeof(window) === 'object') {
+            windowWidth = window.innerWidth;
+        }
 
         if (windowWidth <= 768) {
             columnCount = 1;
-        } else if (windowWidth <= 992) {
-            columnCount = 2;
         } else if (windowWidth <= 1200) {
+            columnCount = 2;
+        } else if (windowWidth <= 1600) {
             columnCount = 3;
-        } else if (windowWidth <= 1440) {
+        } else if (windowWidth > 1600) {
             columnCount = 4;
         }
 
@@ -54,6 +57,15 @@ class EasyGalleryRender {
             this.columns = columnCount;
             this.draw();
         }
+    }
+
+    calcColHeight(col) {
+        var result = 0;
+        var children = col.childNodes;
+        for (var i = 0; i < children.length; i++) {
+            result += children[i].clientHeight;
+        }
+        return result;
     }
 
     draw() {
@@ -79,20 +91,30 @@ class EasyGalleryRender {
         for (i = 0; i < this.columns; i++) {
             columns[i] = this.gallery.context.createElement('div');
             columns[i].classList.add(colClass);
+            columns[i].classList.add('p-0');
             row.appendChild(columns[i]);
         }
 
         for (i = 0; i < this.gallery.config.imageList.length; i++) {
             colIndex = 0;
-            for (n = 1; n < this.columns; n++) {
-                if (columns[n].clientHeight < columns[colIndex].clientHeight) {
+            for (n = 1; n < columns.length; n++) {
+                if (this.calcColHeight(columns[n]) < this.calcColHeight(columns[colIndex])) {
                     colIndex = n;
                 }
             }
-            img = document.createElement('img');
+            
+            var imgContainer = this.gallery.context.createElement('div');
+            imgContainer.classList.add('easy-gallery-image');
+            imgContainer.style.cursor = 'pointer';
+            imgContainer.dataset.imageIndex = i;
+
+            img = this.gallery.context.createElement('img');
             img.setAttribute('src', this.gallery.config.imageList[i].src);
-            img.dataset.imageIndex = i;
-            columns[colIndex].appendChild(img);
+            img.style.maxWidth = '100%';
+            imgContainer.appendChild(img);
+
+            columns[colIndex].appendChild(imgContainer);
+            imgContainer.addEventListener('click', (e) => this.gallery.popup.click(e.target));
         }
     }
 }

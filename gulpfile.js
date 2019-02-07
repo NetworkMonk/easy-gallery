@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */ 
 
 const package = require('./package.json');
-const {parallel, series, src, dest} = require('gulp');
+const {watch, parallel, series, src, dest} = require('gulp');
 const uglify = require('gulp-uglify');
 const uglifycss = require('gulp-uglifycss');
 const rename = require('gulp-rename');
@@ -36,6 +36,11 @@ function buildcss() {
     .pipe(dest('dist/' + package.version + '/'));
 }
 
+function watchall() {
+    watch('src/js/**/*.js', buildjs);
+}
+
 exports.clean = clean;
 exports.build = parallel(buildjs);
+exports.watch = watchall;
 exports.default = exports.build;
