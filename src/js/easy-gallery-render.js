@@ -134,6 +134,9 @@ class EasyGalleryRender {
             imgContainer.classList.add('mx-1');
             imgContainer.style.minHeight = '1rem';
             imgContainer.style.cursor = 'pointer';
+            imgContainer.style.position = 'relative';
+            imgContainer.style.verticalAlign = 'middle';
+            imgContainer.style.textAlign = 'center';
             imgContainer.dataset.imageIndex = i;
 
             img = this.gallery.context.createElement('img');
@@ -143,6 +146,27 @@ class EasyGalleryRender {
 
             columns[colIndex].appendChild(imgContainer);
             imgContainer.addEventListener('click', (e) => this.gallery.popup.click(e.target));
+
+            var imgHoverBox = this.gallery.context.createElement('div');
+            imgHoverBox.classList.add('hover');
+            imgHoverBox.style.position = 'absolute';
+            imgHoverBox.style.top = '0';
+            imgHoverBox.style.left = '0';
+            imgHoverBox.style.right = '0';
+            imgHoverBox.style.bottom = '0';
+            imgHoverBox.style.opacity = '0';
+            imgHoverBox.style.backgroundColor = 'rgba( 0, 0, 0, 0.75 )';
+            imgHoverBox.style.color = '#fff';
+            imgHoverBox.innerHTML = '<i style="position: absolute; display: inline-block; vertical-align: middle; font-size: 2rem; top: 50%; left: 50%; transform: translate( -50%, -50%);" class="fas fa-fw fa-search"></i>';
+            imgContainer.append(imgHoverBox);
+
+            imgContainer.addEventListener('mouseenter', function() {
+                this.getElementsByClassName('hover').item(0).style.transitionDuration = '.2s';
+                this.getElementsByClassName('hover').item(0).style.opacity = '1';
+            });
+            imgContainer.addEventListener('mouseleave', function() {
+                this.getElementsByClassName('hover').item(0).style.opacity = '0';
+            });
         }
 
         this.gallery.config.targetElement.style.transitionDuration = '.5s';
