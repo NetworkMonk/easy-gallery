@@ -48,7 +48,7 @@ class EasyGalleryPopup {
         popupClose.style.right = '0.5rem';
         popupClose.style.color = '#fff';
         popupClose.style.cursor = 'pointer';
-        popupClose.style.opacity = '0.8';
+        popupClose.style.opacity = '0.4';
         popupClose.style.transitionDuration = '.2s';
         popupClose.style.transitionProperty = 'opacity';
         popupClose.style.fontSize = '1.6rem';
@@ -56,7 +56,7 @@ class EasyGalleryPopup {
             this.style.opacity = '1.0';
         });
         popupClose.addEventListener('mouseleave', function() {
-            this.style.opacity = '0.8';
+            this.style.opacity = '0.4';
         });
         popupBack.appendChild(popupClose);
         popupClose.addEventListener('click', () => this.closePopup());
@@ -85,7 +85,7 @@ class EasyGalleryPopup {
         controlLeft.style.width = '25%';
         controlLeft.style.color = '#fff';
         controlLeft.style.cursor = 'pointer';
-        controlLeft.style.opacity = '0.8';
+        controlLeft.style.opacity = '0.4';
         controlLeft.style.transitionDuration = '.2s';
         controlLeft.style.transitionProperty = 'opacity';
         controlLeft.style.fontSize = '1.6rem';
@@ -94,7 +94,7 @@ class EasyGalleryPopup {
             this.style.opacity = '1.0';
         });
         controlLeft.addEventListener('mouseleave', function() {
-            this.style.opacity = '0.8';
+            this.style.opacity = '0.4';
         });
         popupControls.appendChild(controlLeft);
         controlLeft.addEventListener('click', () => this.previousImage());
@@ -105,7 +105,7 @@ class EasyGalleryPopup {
         controlRight.style.width = '25%';
         controlRight.style.color = '#fff';
         controlRight.style.cursor = 'pointer';
-        controlRight.style.opacity = '0.8';
+        controlRight.style.opacity = '0.4';
         controlRight.style.transitionDuration = '.2s';
         controlRight.style.transitionProperty = 'opacity';
         controlRight.style.fontSize = '1.6rem';
@@ -114,7 +114,7 @@ class EasyGalleryPopup {
             this.style.opacity = '1.0';
         });
         controlRight.addEventListener('mouseleave', function() {
-            this.style.opacity = '0.8';
+            this.style.opacity = '0.4';
         });
         popupControls.appendChild(controlRight);
         controlRight.addEventListener('click', () => this.nextImage());
@@ -140,7 +140,6 @@ class EasyGalleryPopup {
             return;
         }
 
-        console.log(newIndex);
         newIndex = parseInt(newIndex);
 
         // Restrict the selected index range to a valid image
@@ -155,7 +154,7 @@ class EasyGalleryPopup {
         var imageExists = false;
         var imgContainer = this.gallery.context.getElementsByClassName('easy-gallery-popup').item(0).getElementsByClassName('easy-gallery-popup-image').item(0);
         for (var i = 0; i < imgContainer.getElementsByClassName('image').length; i++) {
-            if (imgContainer.getElementsByClassName('image').item(i).dataset.imageIndex === newIndex) {
+            if (parseInt(imgContainer.getElementsByClassName('image').item(i).dataset.imageIndex) === newIndex) {
                 imgContainer.getElementsByClassName('image').item(i).style.opacity = '1';
                 imageExists = true;
             } else {
@@ -181,6 +180,7 @@ class EasyGalleryPopup {
         imgBox.style.transitionDuration = '1s';
         imgBox.style.transitionProperty = 'opacity';
         imgBox.style.backgroundImage = 'url("' + this.gallery.config.imageList[newIndex].src + '")';
+        imgBox.dataset.imageIndex = newIndex;
         imgContainer.appendChild(imgBox);
 
         setTimeout(function() {

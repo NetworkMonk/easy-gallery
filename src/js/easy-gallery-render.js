@@ -10,14 +10,38 @@ class EasyGalleryRender {
         if ((typeof(this.gallery) === 'undefined') || (this.gallery.context === false)) {
             return;
         }
-        if (this.resize() === true) {
-            this.draw();
-        }
         if ((typeof(this.gallery.config.targetElement) === 'object') && (this.gallery.config.targetElement instanceof HTMLElement)) {
+            this.gallery.config.targetElement.style.opacity = 0;
+            this.gallery.config.targetElement.style.transitionDuration = '0s';
+            this.gallery.config.targetElement.style.transitionProperty = 'opacity';
             if (typeof(window) !== 'undefined') {
                 window.addEventListener('resize', () => this.resize());
             }
         }
+        this.preload().then(() => this.resize());
+    }
+
+    preload() {
+        var self = this;
+        return new Promise(function(resolve, reject) {
+            var arrImages = [];
+
+            function _loadImage(src, arr) {
+                var img = new Image();
+                img.onload = function() {arr.push([src, img]);};
+                img.onerror = function() {arr.push([src, null]);};
+                img.src = src;
+            }
+            self.gallery.config.imageList.forEach(function (image) {
+                _loadImage(image.src, arrImages);
+            });
+            var interval_id = setInterval(function () {
+                if (arrImages.length === self.gallery.config.imageList.length) {
+                    clearInterval(interval_id);
+                    resolve(arrImages);
+                }
+            }, 100);
+        });
     }
 
     resize() {
@@ -83,6 +107,7 @@ class EasyGalleryRender {
         }
 
         this.gallery.config.targetElement.innerHTML = '';
+
         var row = document.createElement('div');
         row.classList.add('row');
         this.gallery.config.targetElement.appendChild(row);
@@ -105,6 +130,9 @@ class EasyGalleryRender {
             
             var imgContainer = this.gallery.context.createElement('div');
             imgContainer.classList.add('easy-gallery-image');
+            imgContainer.classList.add('my-2');
+            imgContainer.classList.add('mx-1');
+            imgContainer.style.minHeight = '1rem';
             imgContainer.style.cursor = 'pointer';
             imgContainer.dataset.imageIndex = i;
 
@@ -116,5 +144,8 @@ class EasyGalleryRender {
             columns[colIndex].appendChild(imgContainer);
             imgContainer.addEventListener('click', (e) => this.gallery.popup.click(e.target));
         }
+
+        this.gallery.config.targetElement.style.transitionDuration = '.5s';
+        this.gallery.config.targetElement.style.opacity = '1';
     }
 }
