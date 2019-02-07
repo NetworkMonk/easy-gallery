@@ -19,6 +19,7 @@ class EasyGalleryPopup {
         popupBack.style.right = '0';
         popupBack.style.bottom = '0';
         popupBack.style.opacity = '0';
+        popupBack.style.zIndex = '1050';
         popupBack.style.backgroundColor = 'rgba( 0, 0, 0, 0.75 )';
         popupBack.style.transitionDuration = '1s';
         popupBack.style.transitionProperty = 'opacity';
