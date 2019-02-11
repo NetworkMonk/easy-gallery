@@ -40,7 +40,10 @@ class EasyGalleryPopup {
         popupImgContainer.style.bottom = '4rem';
         popupBack.appendChild(popupImgContainer);
 
+        // When we click the image container we want the popup to close
+        popupImgContainer.addEventListener('click', () => this.closePopup());
 
+        
         // Create popup close button
         var popupClose = this.gallery.context.createElement('div');
         popupClose.innerHTML = '<i class="fas fa-fw fa-times"></i>';
